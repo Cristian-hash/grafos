@@ -16,5 +16,20 @@ public class ejercicios {
 		g.arista("c", "d", 13);
 		g.arista("e", "b", 12);
 		System.out.println(g.imp());
+		
+		
+		Grafo<String> f = new Grafo<String>(11);
+
+		String words[] = { "words", "cords", "corps", "coops", "crops", "drops", "drips", "grips", "gripe", "grape","graph" };
+
+		for (int i = 0; i < words.length; i++) {
+			f.insert(words[i]);
+			if (i > 0)
+				f.arista(words[i - 1], words[i]);
+		}
+		System.out.println(f.imp());
+
 	}
+	
+	
 }
