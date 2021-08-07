@@ -1,13 +1,13 @@
-package GRAFOS;
+package GRAFO;
 
-public class Grafo<E extends Comparable<E>> {
+public class Grafo<T extends Comparable<T>> {
 	class Node {
 
 		public Node nodoPadre;
 		public int ordenGrafo;
-		public E info;
+		public T info;
 
-		public Node(E info, Node nodoPadre, int ordenGrafo) {
+		public Node(T info, Node nodoPadre, int ordenGrafo) {
 			this.info = info;
 			this.nodoPadre = nodoPadre;
 			this.ordenGrafo = ordenGrafo;
@@ -23,13 +23,13 @@ public class Grafo<E extends Comparable<E>> {
 
 	}
 
-	public static Integer inf = Integer.MAX_VALUE;
-	public int cantidad = 0, total;
-	public E[] lista;
+	public T[] lista;
 	public int[][] listaAdyacencia;
+	public int cantidad = 0, total;
+	public static Integer a = Integer.MAX_VALUE;
 
 	public Grafo(int n) {
-		lista = (E[]) new Comparable[n];
+		lista = (T[]) new Comparable[n];
 		listaAdyacencia = new int[n][n];
 		total = n;
 
@@ -39,14 +39,14 @@ public class Grafo<E extends Comparable<E>> {
 	private void listaV() {
 		for (int i = 0; i < total; i++)
 			for (int u = 0; u < total; u++)
-				listaAdyacencia[i][u] = inf;
+				listaAdyacencia[i][u] = a;
 	}
 
 	public boolean lleno() {
 		return cantidad == total;
 	}
 
-	public void insert(E info) {
+	public void insert(T info) {
 		if (this.lleno()) {
 			System.out.println("Lleno");
 		} else {
@@ -55,11 +55,15 @@ public class Grafo<E extends Comparable<E>> {
 		}
 	}
 
-	public void arista(E primero, E segundo, int p) {
+	public void arista(T primero, T segundo) {
+		this.arista(primero, segundo, 1, true);
+	}
+
+	public void arista(T primero, T segundo, int p) {
 		this.arista(primero, segundo, p, false);
 	}
 
-	private void arista(E primero, E segundo, int p, boolean both) {
+	private void arista(T primero, T segundo, int p, boolean both) {
 		int primeraposicion, segundaposicion;
 		primeraposicion = sacarP(primero);
 		segundaposicion = sacarP(segundo);
@@ -73,7 +77,7 @@ public class Grafo<E extends Comparable<E>> {
 		}
 	}
 
-	private int sacarP(E data) {
+	private int sacarP(T data) {
 
 		for (int i = 0; i < this.cantidad; i++) {
 			if (lista[i].compareTo(data) == 0)
@@ -93,7 +97,7 @@ public class Grafo<E extends Comparable<E>> {
 		for (int i = 0; i < this.total; i++) {
 			impresion += lista[i] + "\t";
 			for (int u = 0; u < this.total; u++) {
-				impresion += ((this.listaAdyacencia[i][u] == inf) ? "inf" : this.listaAdyacencia[i][u]) + "\t";
+				impresion += ((this.listaAdyacencia[i][u] == a) ? "inf" : this.listaAdyacencia[i][u]) + "\t";
 			}
 			impresion += "\n";
 		}
